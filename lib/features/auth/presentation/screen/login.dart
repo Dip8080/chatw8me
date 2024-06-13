@@ -88,27 +88,25 @@ class _LoginState extends ConsumerState<Login> {
                           children: [
                             ElevatedButton(
                               onPressed: () async {
-                               if (_formKey.currentState!.validate()) {
-                              
-                                try {
-                                  await login(_emailController.text, _passwordController.text);
-                                }catch (e){
-                                 setState(() {
-                                   isLoading = false;
-                                 });
-                                 ScaffoldMessenger.of(context).showSnackBar(
-                                 SnackBar(
-                                   content: Text(e.toString()), 
-                                 ));
-                                
-                                
-                                } finally {
-                                  context.go('/');
-                                  
+                                if (_formKey.currentState!.validate()) {
+                                  try {
+                                    setState(() {
+                                      isLoading = true;
+                                    });
+                                    await login(_emailController.text,
+                                        _passwordController.text);
+                                  } catch (e) {
+                                    setState(() {
+                                      isLoading = false;
+                                    });
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content: Text(e.toString()),
+                                    ));
+                                  } finally {
+                                    context.go('/');
+                                  }
                                 }
-                                
-                            
-                              }
                               },
                               child: Text('Login'),
                             ),
@@ -128,7 +126,8 @@ class _LoginState extends ConsumerState<Login> {
                         ),
                         GestureDetector(
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
                                 return Registration();
                               }));
                             },
