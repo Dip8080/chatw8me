@@ -43,13 +43,27 @@ class _RegistrationState extends ConsumerState<Registration> {
                     child: Column(
                       children: <Widget>[
                         TextFormField(
+                          controller: _nameController,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          decoration: const InputDecoration(
+                              prefixIcon: Icon(Icons.email_outlined),
+                              hintText: 'Name'),
+                          validator: (String? value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return 'Enter Your name';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 16),
+                        TextFormField(
                           controller: _emailController,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           decoration: const InputDecoration(
                               prefixIcon: Icon(Icons.email_outlined),
                               hintText: 'email'),
                           validator: (String? value) {
-                            if (value == null || value.trim().isEmpty) {
+                            if (value == null) {
                               return 'Enter Your Email';
                             }
                             return null;
@@ -102,7 +116,7 @@ class _RegistrationState extends ConsumerState<Registration> {
                               if (_formKey.currentState!.validate()) {
                               
                                 try {
-                                  await register(_emailController.text, _passwordController.text);
+                                  await register( _nameController.text, _emailController.text.trim(), _passwordController.text);
                                 }catch (e){
                                  setState(() {
                                    isLoading = false;
@@ -113,11 +127,7 @@ class _RegistrationState extends ConsumerState<Registration> {
                                  ));
                                 
                                 
-                                } finally {
-                                  context.go('/login');
-                                  
-                                }
-                                
+                                } 
                             
                               }
                             },
@@ -158,6 +168,7 @@ class _RegistrationState extends ConsumerState<Registration> {
 
   @override
   void dispose() {
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _passwordConfirmController.dispose();

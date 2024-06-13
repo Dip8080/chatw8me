@@ -2,6 +2,7 @@ import 'package:chatw8me/features/auth/data/auth_provider.dart';
 import 'package:chatw8me/features/auth/presentation/screen/login.dart';
 import 'package:chatw8me/features/auth/presentation/screen/registration.dart';
 import 'package:chatw8me/features/chat/presentation/screen/chat_screen.dart';
+import 'package:chatw8me/features/chat/presentation/screen/user_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
@@ -18,9 +19,9 @@ class ChatApp extends ConsumerWidget {
         GoRoute(
           path: '/',
           builder: (context, state) => authState.when(
-            data: (user) => user != null ? ChatScreen() : Login(),
-            loading: () => Center(child: CircularProgressIndicator()),
-            error: (error, stack) => Center(child: Text('Error: $error')),
+            data: (user) => user != null ? UsersScreen() : Login(),
+            loading: () => CircularProgressIndicator(),
+            error: (error, stack) => Text('Error: $error'),
           ),
         ),
         GoRoute(
@@ -28,8 +29,11 @@ class ChatApp extends ConsumerWidget {
           builder: (context, state) => Registration(),
         ),
         GoRoute(
-          path: '/login',
-          builder: (context, state) => Registration(),
+          path: '/chat/:chatRoomId',
+          builder: (context, state) {
+            final chatRoomId = state.pathParameters['chatRoomId']!;
+            return ChatScreen(chatRoomId: chatRoomId);
+          },
         ),
       ],
     );

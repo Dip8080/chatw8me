@@ -4,19 +4,24 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-
-final chatMessagesProvider = StreamProvider.autoDispose((ref) {
+final chatMessagesProvider = StreamProvider.family.autoDispose((ref, String chatRoomId) {
   return FirebaseFirestore.instance
-      .collection('chatMessages')
+      .collection('chatRooms')
+      .doc(chatRoomId)
+      .collection('messages')
       .orderBy('timestamp', descending: true)
       .snapshots();
 });
 
 class ChatScreen extends HookConsumerWidget {
+  final String chatRoomId;
+
+  ChatScreen({required this.chatRoomId});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = FirebaseAuth.instance.currentUser;
-    final messages = ref.watch(chatMessagesProvider);
+    final messages = ref.watch(chatMessagesProvider(chatRoomId));
     final messageController = useTextEditingController();
 
     return Scaffold(
@@ -27,7 +32,6 @@ class ChatScreen extends HookConsumerWidget {
             icon: Icon(Icons.logout),
             onPressed: () async {
               await FirebaseAuth.instance.signOut();
-              // Navigate back to login screen
               Navigator.of(context).pushReplacementNamed('/');
             },
           ),
@@ -86,8 +90,11 @@ class ChatScreen extends HookConsumerWidget {
                   onPressed: () async {
                     final message = messageController.text.trim();
                     if (message.isNotEmpty) {
-                      
-                      await FirebaseFirestore.instance.collection('chatMessages').add({
+                      await FirebaseFirestore.instance
+                          .collection('chatRooms')
+                          .doc(chatRoomId)
+                          .collection('messages')
+                          .add({
                         'userId': user?.uid,
                         'message': message,
                         'timestamp': FieldValue.serverTimestamp(),
