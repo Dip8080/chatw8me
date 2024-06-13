@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "860684238170",
+    "project_id": "chatw8me",
+    "storage_bucket": "chatw8me.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860684238170:android:d6434586d3684b9a848763",
+        "android_client_info": {
+          "package_name": "com.example.chatw8me"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYUVeQt64HCrPeyxwIvSV9qusefbxv5aw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
