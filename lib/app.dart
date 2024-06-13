@@ -27,6 +27,10 @@ class ChatApp extends ConsumerWidget {
           path: '/register',
           builder: (context, state) => Registration(),
         ),
+        GoRoute(
+          path: '/login',
+          builder: (context, state) => Registration(),
+        ),
       ],
     );
     return FlutterSizer(builder: (context, orientation, screenType) {

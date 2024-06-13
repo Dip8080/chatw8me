@@ -1,3 +1,4 @@
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -14,6 +15,7 @@ final registrationProvider = Provider((ref) {
   return (String email, String password) async {
     try {
       await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+      
     } on FirebaseAuthException catch (e) {
       throw e.message ?? 'An unknown error occurred';
     }
@@ -30,3 +32,11 @@ final loginProvider = Provider((ref) {
     }
   };
 });
+
+final logoutProvider = Provider((ref) {
+  final firebaseAuth = ref.watch(firebaseAuthProvider);
+  return () async {
+    await firebaseAuth.signOut();
+  };
+});
+
