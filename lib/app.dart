@@ -22,7 +22,7 @@ class ChatApp extends ConsumerWidget {
             data: (user) => user != null ? UsersScreen() : Login(),
             loading: () => CircularProgressIndicator(),
             error: (error, stack) => Text('Error: $error'),
-          ),
+          )
         ),
         GoRoute(
           path: '/register',
