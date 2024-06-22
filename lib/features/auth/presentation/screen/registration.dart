@@ -37,7 +37,7 @@ class _RegistrationState extends ConsumerState<Registration> {
               ),
               SizedBox(height: 2.h),
               Container(
-                height: 70.h,
+               
                 child: Form(
                     key: _formKey,
                     child: Column(
@@ -63,7 +63,7 @@ class _RegistrationState extends ConsumerState<Registration> {
                               prefixIcon: Icon(Icons.email_outlined),
                               hintText: 'email'),
                           validator: (String? value) {
-                            if (value == null) {
+                            if (value == null || value.trim().isEmpty) {
                               return 'Enter Your Email';
                             }
                             return null;
@@ -116,7 +116,7 @@ class _RegistrationState extends ConsumerState<Registration> {
                               if (_formKey.currentState!.validate()) {
                               
                                 try {
-                                  await register( _nameController.text, _emailController.text.trim(), _passwordController.text);
+                                  await register( _emailController.text, _passwordController.text , _nameController.text.trim(),);
                                 }catch (e){
                                  setState(() {
                                    isLoading = false;

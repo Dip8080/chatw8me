@@ -29,10 +29,16 @@ class ChatApp extends ConsumerWidget {
           builder: (context, state) => Registration(),
         ),
         GoRoute(
-          path: '/chat/:chatRoomId',
+          path: '/chat/:chatRoomId/:currentUserId/:otherUserId',
           builder: (context, state) {
             final chatRoomId = state.pathParameters['chatRoomId']!;
-            return ChatScreen(chatRoomId: chatRoomId);
+            final currentUserId = state.pathParameters['currentUserId']!;
+            final otherUserId = state.pathParameters['otherUserId']!;
+            return ChatScreen(
+              chatRoomId: chatRoomId,
+              currentUserId: currentUserId,
+              otherUserId: otherUserId,
+            );
           },
         ),
       ],
@@ -85,9 +91,9 @@ class ChatApp extends ConsumerWidget {
         brightness: Brightness.dark,
         inputDecorationTheme: const InputDecorationTheme(
           enabledBorder:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.purple)),
+              OutlineInputBorder(borderSide: BorderSide(color: AppColors.lightPrimary)),
           focusedBorder:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.purple)),
+              OutlineInputBorder(borderSide: BorderSide(color: AppColors.lightPrimary)),
           errorBorder:
               OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
           focusedErrorBorder:
@@ -101,7 +107,7 @@ class ChatApp extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               // backgroundColor: Colors.purple,
-              backgroundColor: Color.fromARGB(255, 247, 96, 85),
+              backgroundColor: AppColors.lightPrimary,
               foregroundColor: Colors.white),
         ),
         expansionTileTheme: ExpansionTileThemeData(
@@ -118,7 +124,7 @@ class ChatApp extends ConsumerWidget {
 }
 
 class AppColors {
-  static const Color lightPrimary = Color.fromARGB(255, 241, 98, 76);
+  static const Color lightPrimary = Colors.green;
   static const Color darkPrimary = Colors.black;
   static const Color lightAccent = Color.fromARGB(255, 137, 211, 240);
   static const Color lightBG = Color(0xfffcfcff);

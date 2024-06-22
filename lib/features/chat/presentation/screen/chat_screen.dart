@@ -4,7 +4,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final chatMessagesProvider = StreamProvider.family.autoDispose((ref, String chatRoomId) {
+// Fetch chat messages based on chat room ID
+final chatMessagesProvider =
+    StreamProvider.family.autoDispose((ref, String chatRoomId) {
   return FirebaseFirestore.instance
       .collection('chatRooms')
       .doc(chatRoomId)
@@ -15,8 +17,14 @@ final chatMessagesProvider = StreamProvider.family.autoDispose((ref, String chat
 
 class ChatScreen extends HookConsumerWidget {
   final String chatRoomId;
+  final String currentUserId;
+  final String otherUserId;
 
-  ChatScreen({required this.chatRoomId});
+  ChatScreen({
+    required this.chatRoomId,
+    required this.currentUserId,
+    required this.otherUserId,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,7 +34,7 @@ class ChatScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat'),
+        title: Text('Chat with $otherUserId'),
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
@@ -51,16 +59,19 @@ class ChatScreen extends HookConsumerWidget {
                     final isMe = data['userId'] == user?.uid;
                     return ListTile(
                       title: Align(
-                        alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+                        alignment:
+                            isMe ? Alignment.centerRight : Alignment.centerLeft,
                         child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                          padding:
+                              EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                           decoration: BoxDecoration(
                             color: isMe ? Colors.blue : Colors.grey[300],
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
                             data['message'],
-                            style: TextStyle(color: isMe ? Colors.white : Colors.black),
+                            style: TextStyle(
+                                color: isMe ? Colors.white : Colors.black),
                           ),
                         ),
                       ),

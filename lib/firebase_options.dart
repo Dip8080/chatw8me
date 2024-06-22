@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -65,4 +59,23 @@ class DefaultFirebaseOptions {
     storageBucket: 'chatw8me.appspot.com',
     iosBundleId: 'com.example.chatw8me',
   );
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyDo2bPLb3wKSmJ8l-N0QJFP3X_XYbLZzLs',
+    appId: '1:860684238170:web:970e4c301db63059848763',
+    messagingSenderId: '860684238170',
+    projectId: 'chatw8me',
+    authDomain: 'chatw8me.firebaseapp.com',
+    storageBucket: 'chatw8me.appspot.com',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyCRXuA4dCMTB2rvYdy_biJz1PNDeuhKIa8',
+    appId: '1:860684238170:ios:95970963ef54cf1a848763',
+    messagingSenderId: '860684238170',
+    projectId: 'chatw8me',
+    storageBucket: 'chatw8me.appspot.com',
+    iosBundleId: 'com.example.chatw8me',
+  );
+
 }
