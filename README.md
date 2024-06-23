@@ -2,7 +2,9 @@
 Check out the live demo of the application [here](https://chatw8me.web.app/).
 ## Project Description
 This project is a basic chat application built using Flutter and Firebase. The application includes essential features such as chat functionality, notifications, and user login/logout. It is structured following a feature-first approach and utilizes the specified packages: `flutter_riverpod`, `flutter_hooks`, and `go_router`.
-
+## demo user
+- rahim@gmail.com , pass:123456 
+- karim@gmail.com , pass:123456
 ## Features
 - **Chat Functionality:** Users can send and receive messages in real-time.
 - **Notifications:** Push notifications for new messages.
