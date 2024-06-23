@@ -40,7 +40,7 @@ class _UsersScreenState extends ConsumerState<UsersScreen> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 14.h,
-        title: Text('Welcome-${user?.displayName}'),
+        title: Text('Welcome${user?.displayName},' ,style: TextStyle(fontWeight: FontWeight.bold),),
         centerTitle: true,
         leading: Wrap(
           children: [
@@ -81,7 +81,7 @@ class _UsersScreenState extends ConsumerState<UsersScreen> {
                   onTap: () async {
                     final chatRoom =
                         await ref.read(chatRoomProvider)(user!.uid, userId);
-                    context.push('/chat/${chatRoom.id}/${user!.uid}/$userId');
+                    context.push('/chat/${chatRoom.id}/${user!.uid}/${userData['displayName']}');
                   },
                   subtitle: Text(
                     'online',

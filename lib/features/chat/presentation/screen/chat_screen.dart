@@ -1,7 +1,10 @@
+import 'package:chatw8me/app.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Fetch chat messages based on chat room ID
@@ -34,7 +37,25 @@ class ChatScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat with $otherUserId'),
+        toolbarHeight: 8.h,
+        title: Stack(
+          children: [
+            Container(
+              width: 100.w,
+          
+              child: Text('$otherUserId' , style: TextStyle(fontWeight: FontWeight.bold),)),
+            Positioned(
+              left: 15.w,
+              bottom: 1.h,
+              child: Container(
+                width: 3.w,
+                height: 3.h,
+                child: CircleAvatar(
+                  backgroundColor: AppColors.lightPrimary,
+                ),
+              ))
+          ],
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
