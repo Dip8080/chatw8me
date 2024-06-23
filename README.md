@@ -79,7 +79,7 @@ lib/
 `go_router` is utilized for handling navigation and routing within the application, providing a simple and flexible approach to managing app routes.
 
 ## Live Demo
-The live demo, APK file, and video preview will be provided soon. Thank you for your patience.
+click [Chatw8me](https://chatw8me.web.app/)
 
 ## Contributing
 Contributions are welcome! Please fork the repository and submit a pull request for any feature requests or bug fixes.
