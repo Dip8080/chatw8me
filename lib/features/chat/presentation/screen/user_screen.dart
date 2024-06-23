@@ -13,6 +13,7 @@ class UsersScreen extends StatefulHookConsumerWidget {
 }
 
 class _UsersScreenState extends ConsumerState<UsersScreen> {
+  
   @override
   void initState() {
     super.initState();
@@ -40,7 +41,7 @@ class _UsersScreenState extends ConsumerState<UsersScreen> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 14.h,
-        title: Text('Welcome${user?.displayName},' ,style: TextStyle(fontWeight: FontWeight.bold),),
+        title: Text('Welcome ${user?.displayName},' ,style: TextStyle(fontWeight: FontWeight.bold),),
         centerTitle: true,
         leading: Wrap(
           children: [
